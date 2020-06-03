@@ -1,0 +1,134 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div id="upper" class="d-block w-100">
+        <div id="particles-js"></div>
+    </div>
+    <div class="container">
+        <main>
+            <h1>Machine Learning</h1>
+            <h3>Implementasi KNN (K-Nearest Neighbors), <br> Memprediksi
+                Penumpang Titanic akan Selamat atau Tidak
+            </h3>
+            <hr>
+            <br>
+            <div class="bagian1">
+                <p>1. Dataset yang digunakan diambil dari <a
+                        href="https://www.kaggle.com/abhinavralhan/titanic">www.kaggle.com</a>
+                    yaitu tentang titanic, dataset ini sendiri terdiri dari 891 data/row dan 12 kolom</p>
+                <div class="container text-center">
+                    <div class="table-scroll">
+                        <div class="table table-hover">
+                            {% for table in tables %}
+                                {{ table|safe }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mengecek Missing Null -->
+                <p class="mt-5">2. Memastikan bahwa tidak ada data yang kosong atau <i>Missing Null</i>. Hal ini dapat dilakukan
+                        dengan 2 cara, yaitu
+                        menggunakan grafik heatmap atau hanya menampilkan data berbentuk tulisan</p>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="table-scroll">
+                            <table class="table table-hover" style="text-align: center;">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Data</th>
+                                        <th scope="col">Jumlah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for i in dfDict2 %}
+                                    <tr>
+                                        <td>{{ i }}</td>
+                                        <td>{{ dfDict2[i] }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img alt="Heatmap Picture" src="{{ url_for('static',filename='Heatmap.PNG') }}" style="height: 250px; width: auto;">
+                    </div>
+                </div>
+
+                <!-- Data Visualization -->
+                <p class="mt-5">3. Melakukan Data Visualization yang bertujuan untuk lebih 
+                    mengerti dan memahami tentang data yang  nantinya akan di proses</p>
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <img alt="Heatmap Picture" src="{{ url_for('static',filename='BoxPlotSurvivedPClass.PNG') }}" style="height: 250px; width: auto;">
+                    </div>
+                    <div class="col-md-6"><img alt="Heatmap Picture" src="{{ url_for('static',filename='CountPlotSurvivedPClass.PNG') }}"
+                        style="height: 250px; width: auto;">
+                    </div>
+                </div>
+
+                <!-- Membuang Fitur/Colomn -->
+                <p class="mt-5">4. Membuang beberapa fitur atau kolom seperti kolom <strong> Cabin</strong>,<strong> Passenger Id</strong>,<strong> Name</strong>,dan 
+                    <strong> Ticket</strong></p>
+                <div class="container text-center">
+                    <div class="table-scroll">
+                        <div class="table table-hover table-responsive">
+                            {% for table in dropped %}
+                                {{ table|safe }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mengisi nilai null dan mengubah nilai kategori menjadi dummy var -->
+                <p class="mt-5">5. Langkah terakhir sebelum melatih data yaitu kita harus mengisi nilai-nilai
+                    yang masih kosong / Null, kita juga akan mengganti nilai kategori seperti pada kolom Sex dan
+                    Embarked menjadi <i>dummy variables</i> menggunakan fungsi dari pandas yaitu <strong>get_dummies</strong>
+                </p>
+                <div class="container text-center">
+                    <div class="table-scroll">
+                        <div class="table table-hover table-responsive">
+                            {% for table in dfAkhir %}
+                                {{ table|safe }}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- Training Data -->
+                <p class="mt-5">6. Setelah semua data telah diubah menjadi data yang dapat diolah oleh model,
+                    karena kali ini digunakan algoritma KNN, maka kita harus menetapkan nilai dari k. Untuk
+                    mendapat nilai k dengan hasil akurasi yang maximal, maka digunakannya proses looping. 
+                    nantinya nilai k terbaik akan didapat dari maximal rata-rata nilai prediksi dikurang 
+                    nilai sebenarnya. Seperti yang dilihat pada grafik dibagian kanan, nilai i dengan rata-rata error
+                    terbaik didapat pada sekitar i=1
+                </p>
+                <div class="row text-center">
+                    <div class="col-md-6">
+                        <img alt="Heatmap Picture" src="{{ url_for('static',filename='download.jpg') }}"
+                            style="height: 250px; width: auto;">
+                    </div>
+                    <div class="col-md-6"><img alt="Heatmap Picture"
+                            src="{{ url_for('static',filename='FinalTest.PNG') }}" style="height: 250px; width: auto;">
+                    </div>
+                </div>
+                <!-- Hasil Confussion Matrix dan Classification Report -->
+                <p class="mt-5">7. Pada langkah terakhir ini, model KNN yang telah dibuat akan di <i>training</i>
+                     atau dilatih dengan menggunakan nilai k yang telah didapat dari proses looping tadi. Dari hasil
+                     men-training data, maka didapatkan hasil : (<i>Confussion Matrix</i>,<i>Classification Report</i>)
+                </p>
+                <div class="row text-center mt-5">
+                    <div class="col-md-6">
+                        <img alt="Heatmap Picture" src="{{ url_for('static',filename='ConfussionMatrix.png') }}"
+                            style="height: 50px; width: auto;">
+                    </div>
+                    <div class="col-md-6"><img alt="Heatmap Picture"
+                            src="{{ url_for('static',filename='ClassificationReport.png') }}" style="height: 150px; width: auto;">
+                    </div>
+                </div>
+
+                <small class="form-text text-muted mt-5">See the code : <a href="#">github.com</a></small>
+            </div>
+        </main>
+    </div>
+{% endblock content %}

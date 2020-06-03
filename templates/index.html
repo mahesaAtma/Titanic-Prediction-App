@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="content-section">
+                    <form method="POST" action="">
+                        {{ forms.hidden_tag() }}
+                        {{ forms.csrf_token }}
+                        <fieldset class="form-group">
+                            <div class="form-group">
+                                {{ forms.PClass.label(class="form-control-label") }}
+                                {% if forms.PClass.errors %}
+                                    {{ forms.PClass(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in forms.PClass.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ forms.PClass(class="form-control form-control-sm") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ forms.Age.label(class="form-control-label") }}
+                                {% if forms.Age.errors %}
+                                    {{ forms.Age(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in forms.Age.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ forms.Age(class="form-control form-control-sm") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ forms.Fare.label(class="form-control-label") }}
+                                {% if forms.Fare.errors %}
+                                    {{ forms.Fare(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in forms.Fare.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ forms.Fare(class="form-control form-control-sm") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ forms.Male.label(class="form-control-label") }}
+                                {% if forms.Male.errors %}
+                                    {{ forms.Male(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in forms.Male.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ forms.Male(class="form-control form-control-sm") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                {{ forms.Embarked.label(class="form-control-label") }}
+                                {% if forms.Embarked.errors %}
+                                    {{ forms.Embarked(class="form-control form-control-sm is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in forms.Embarked.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ forms.Embarked(class="form-control form-control-sm") }}
+                                {% endif %}
+                            </div>
+                            <div class="form-check mb-2">
+                                {% if forms.SibSp.errors %}
+                                    {{ forms.SibSp(class="form-check-input is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in forms.SibSp.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ forms.SibSp(class="form-check-input") }}
+                                {% endif %}
+                                {{ forms.SibSp.label(class="form-check-label") }}
+                            </div>
+                            <div class="form-check mb-2">
+                                {% if forms.Parch.errors %}
+                                    {{ forms.Parch(class="form-check-input is-invalid") }}
+                                    <div class="invalid-feedback">
+                                        {% for error in forms.Parch.errors %}
+                                            <span>{{ error }}</span>
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ forms.Parch(class="form-check-input") }}
+                                {% endif %}
+                                {{ forms.Parch.label(class="form-check-label") }}
+                            </div>
+                        </fieldset>
+                        {{ forms.Submit(class="btn btn-outline-primary btn-block m-1") }}
+                    </form>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3> Prediction : </h3>
+                <div class="box-prediction">
+                    <p>{{ survived }}</p>
+                </div>
+                <small  class="form-text text-muted">See the walkthrough : <a href="{{ url_for('display') }}">See Here!</a></small>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
